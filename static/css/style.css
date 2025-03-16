@@ -54,7 +54,7 @@ body{
 }
 
 .headline h2 {
-    font-size: 60px;
+    font-size: 40px;
     margin: 0;
     padding: 0;
     line-height: 0.8; /* Relative to font size */
@@ -72,9 +72,9 @@ body{
 .main{
     position: absolute;
     right: 5%;
-    top: 30%;
+    top: 40%;
     transform: translateX(-5%);
-    transform: translateY(-30%);
+    transform: translateY(-40%);
     z-index: 2;
     width: 35%;
 }

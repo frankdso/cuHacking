@@ -18,7 +18,7 @@
                           <div class="tp-login-placeholder heading selectHeading" >
                             Select Volunteer
                           </div>
-                          <select name="role" id="roleSelect" required class="select">
+                          <select name="homeless_id" id="roleSelect" required class="select">
                             {% for h in homeless_list %}
                               <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
                             {% endfor %}
@@ -29,7 +29,7 @@
                           <div class="tp-login-placeholder heading selectHeading" >
                             Select Event
                           </div>
-                          <select name="role" id="roleSelect" required class="select">
+                          <select name="selected_event" id="roleSelect" required class="select">
                             {% for event in events %}
                               <option value="{{ event['org_id'] }}|{{ event['event_index'] }}">
                                 {{ event['org_name'] }} - {{ event['eventName'] }} ({{ event['positions_available'] }} positions available)

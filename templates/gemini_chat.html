@@ -1,28 +1,79 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleChat.css')}}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
-    <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <title>Eat and Earn</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleChat.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css') }}">
+  <link href="{{ url_for('static', filename='/css/register.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <title>Eat and Earn</title>
+  <style>
+    /* Container covering full viewport with flex column layout */
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    .landing {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    /* Chatbot container takes full width and is fixed at the bottom */
+    #chatbot-container {
+      width: 100%;
+      max-width: 1400px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      /* Allow the input area to always stick to bottom */
+      justify-content: space-between;
+      height: 400px;
+    }
+    /* Messages container fills available space */
+    #chatbot-messages {
+      width: 100%;
+      flex: 1;
+      overflow-y: auto;
+      border: 1px solid #eee;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    /* Input area container at the bottom */
+    #chatbot-input-area {
+      display: flex;
+      gap: 10px;
+    }
+    #chatbot-input {
+      flex: 1;
+      box-sizing: border-box;
+      padding: 8px;
+    }
+    #chatbot-send {
+      padding: 8px 16px;
+    }
+  </style>
 </head>
 <body>
   <div class="landing">
     <div id="chatbot-container" class="ngoListCont">
       <h1>Eat & Earn Chat Assistant</h1>
-      <div id="chatbot-messages" style="height:200px; padding:5px; margin-bottom:10px;"></div>
-      <input type="text" id="chatbot-input" placeholder="Type your message here..." style="width:100%; box-sizing:border-box;" />
-      <button id="chatbot-send">Send</button>
+      <div id="chatbot-messages"></div>
+      <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Type your message here..." />
+        <button id="chatbot-send">Send</button>
+      </div>
     </div>
   </div>
-  
-  
-  
-  
-  
   
   <script>
     const messagesDiv = document.getElementById('chatbot-messages');
@@ -36,16 +87,16 @@
       inputField.value = "";
 
       fetch('/web/gemini/chat', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({prompt: userMessage})
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({prompt: userMessage})
       })
       .then(response => response.json())
       .then(data => {
-        appendMessage("Assistant", data.response);
+          appendMessage("Assistant", data.response);
       })
       .catch(error => {
-        console.error("Error:", error);
+          console.error("Error:", error);
       });
     });
 
