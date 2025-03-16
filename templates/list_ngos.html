@@ -7,7 +7,16 @@
   <h1>List of NGOs</h1>
   <ul>
     {% for ngo in ngos %}
-      <li>{{ ngo.name }} {% if ngo.cause %} ({{ ngo.cause }}) {% endif %}</li>
+      <li>
+        {{ ngo.name }} {% if ngo.cause %} ({{ ngo.cause }}) {% endif %}<br>
+        Amount Raised: ${{ ngo.amount_raised if ngo.amount_raised is defined else "0.00" }}<br>
+        <!-- Donation form -->
+        <form action="/web/user/donate_ngo" method="POST" style="margin-top:5px;">
+          <input type="hidden" name="ngo_id" value="{{ ngo._id }}">
+          <input type="number" name="donation" placeholder="Enter donation amount" step="0.01" required>
+          <button type="submit">Donate</button>
+        </form>
+      </li>
     {% endfor %}
   </ul>
   <br>
