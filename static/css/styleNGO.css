@@ -60,3 +60,32 @@ body{
     width: 100%;
     box-sizing: border-box;
   }
+
+  .ngoList {
+    list-style: none;
+    padding: 0;
+}
+
+.ngoItem {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    background-color: rgba(242, 210, 210, 0.1);
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s;
+    width: 50%;
+}
+
+.ngoItem:hover {
+    cursor: pointer;
+    background-color: rgba(242, 210, 210, 0.2);
+}
+
+.ngoCause {
+    font-size: 18px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-left: 10px;
+}

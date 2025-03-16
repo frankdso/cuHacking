@@ -76,3 +76,44 @@ h3{
     opacity: 0.8;
     margin-left: 10px;
 }
+
+.ngo-action-form {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.styled-btn {
+    background-color: #F2D2D2;
+    color: #0B152D;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.styled-btn:hover {
+    background-color: #e8c4c4;
+    transform: translateY(-2px);
+}
+
+.styled-btn:active {
+    transform: translateY(0);
+}
+
+.ngoItem {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    background-color: rgba(242, 210, 210, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.ngoItem:hover {
+    background-color: rgba(242, 210, 210, 0.15);
+}

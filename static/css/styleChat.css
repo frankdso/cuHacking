@@ -32,3 +32,14 @@
         color: #fff;
         width: 50vw;
     }    
+    #chatbot-messages{
+        font-family: "Montserrat", sans-serif;
+        font-size: 24px;
+        font-weight: 500;
+        background-color: rgba(242, 210, 210, 0.1);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        transition: background-color 0.3s;
+        width: 50%;
+    }

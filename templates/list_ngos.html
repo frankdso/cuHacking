@@ -26,7 +26,7 @@
             Contact Us
         </a>
         <a class="q-head-nav" href="/logout">
-            Logout
+            Log Out
         </a>
     </div>
   </header>
@@ -36,16 +36,16 @@
       <ul class="ngoList">
         {% for ngo in ngos %}
           <li class="ngoItem">{{ ngo.name }} <span class="ngoCause">{% if ngo.cause %} ({{ ngo.cause }}) {% endif %} <span class="ngoCause">Amount Raised: ${{ ngo.amount_raised if ngo.amount_raised is defined else "0.00" }}</span></span></li>
-          <form action="/web/user/donate_ngo" method="POST" style="margin-top:5px;">
+          <form action="/web/user/donate_ngo" method="POST" class="ngo-action-form">
             <input type="hidden" name="ngo_id" value="{{ ngo._id }}">
-            <input type="number" name="donation" placeholder="Enter donation amount" step="0.01" required>
-            <button type="submit">Donate</button>
-          </form>
+            <input type="number" name="donation" placeholder="Donate" step="0.01" required>
+            <button type="submit" class="styled-btn">Donate</button>
+          </form>        
         {% endfor %}
       </ul>
-      <h3>
+      <!-- <h3>
         So that's what rock bottom looks like.
-      </h3>
+      </h3> -->
     </div>
     <br>
   </div>

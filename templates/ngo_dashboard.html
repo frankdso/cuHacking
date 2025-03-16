@@ -27,7 +27,7 @@
         </a>
         <!-- if auth -->
         <a class="q-head-nav" href="/logout">
-            Logout
+            Log Out
         </a>
     </div>
   </header>
@@ -39,10 +39,10 @@
       <a href="/web/ngo/assign_org" class="q-body-nav">Assign Volunteers to Event</a> <br>
       <a href="/web/homeless/redeem" class="q-body-nav">Help Volunteers</a> 
       <h2>Homeless People You Have Added:</h2>
-      <ul>
+      <ul class="ngoList">
         {% for h in homeless %}
-          <li>
-            {{ h['name'] }} ({{ h['email'] }})<br>
+          <li class="ngoItem">
+            {{ h['name'] }}<br>
             Shelter Credits: {{ h.get('shelter_credits', 0) }}, Food Credits: {{ h.get('food_credits', 0) }}<br>
             {% if h.get('org_assigned') %}
               Assigned to: {{ h['org_assigned'] }} (Event: {{ h.get('event_assigned', 'N/A') }})
@@ -60,6 +60,7 @@
               Not Assigned
             {% endif %}
           </li>
+          <br>
         {% endfor %}
         </ul>
     </div>
