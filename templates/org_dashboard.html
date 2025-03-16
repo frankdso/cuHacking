@@ -1,36 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Organization Dashboard - Earn & Eat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleNGO.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
+    <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Eat and Earn</title>
 </head>
 <body>
-  <h1>Organization Dashboard</h1>
-  <p>Welcome, {{ org.org_name }}!</p>
-  <p>Email: {{ org.email }}</p>
-  <h2>Your Events</h2>
-  <ul>
-    {% for event in org.events %}
-      <li>
-        Event: {{ event.eventName }}<br>
-        Positions Available: {{ event.positions_available }}<br>
-        Shelter Credits Offered: {{ event.shelter_credits_offered }}<br>
-        Food Credits Offered: {{ event.food_credits_offered }}
-      </li>
-    {% endfor %}
-  </ul>
-  <h3>Add New Event</h3>
-  <form action="/org/manage" method="POST">
-    <label>Event Name:</label>
-    <input type="text" name="eventName" required><br><br>
-    <label>Positions Available:</label>
-    <input type="number" name="positions_available" required><br><br>
-    <label>Shelter Credits Offered:</label>
-    <input type="number" name="shelter_offered" required><br><br>
-    <label>Food Credits Offered:</label>
-    <input type="number" name="food_offered" required><br><br>
-    <button type="submit">Add Event</button>
-  </form>
-  <br>
-  <a href="/logout">Logout</a>
-</body>
-</html>
+  <header>
+    <div class="left q-head-nav-wrap">
+        <a class="q-head-nav" href="#home">
+            logo
+        </a>
+    </div>
+    <div class="q-head-nav-wrap">
+        <a class="q-head-nav" href="#home">
+            Home
+        </a>
+        <a class="q-head-nav" href="#events">
+            About
+        </a>
+        <a class="q-head-nav" href="#contact">
+            Contact Us
+        </a>
+        <!-- if auth -->
+        <a class="q-head-nav" href="/logout">
+            Log Out
+        </a>
+    </div>
+  </header>
+
+  <div class="landing">
+    <div class="ngoListCont">
+      <h1>Organization Dashboard</h1>
+      <p>Welcome, {{ org.org_name }}!</p>
+      <p>Email: {{ org.email }}</p>
+      <h2>Your Events</h2>
+      <ul>
+        {% for event in org.events %}
+          <li>
+            Event: {{ event.eventName }}<br>
+            Positions Available: {{ event.positions_available }}<br>
+            Shelter Credits Offered: {{ event.shelter_credits_offered }}<br>
+            Food Credits Offered: {{ event.food_credits_offered }}
+          </li>
+        {% endfor %}
+      </ul>
+      <h3>Add New Event</h3>
+      <form class="tp-login-form" action="/org/manage" method="POST">
+        <label>
+          <div class="tp-login-placeholder heading">
+            Event Name
+          </div>
+          <input type="email" name="eventName" required>
+        </label>
+        <br>
+        <label>
+          <div class="tp-login-placeholder heading">
+            Positions Available
+          </div>
+          <input type="email" name="positions_available" required>
+        </label>
+        <br>
+        <label>
+          <div class="tp-login-placeholder heading">
+            Shelter Credits Offered
+          </div>
+          <input type="email" name="shelter_offered" required>
+        </label>
+        <br>
+        <label>
+          <div class="tp-login-placeholder heading">
+            Food Credits Offered
+          </div>
+          <input type="email" name="food_offered" required>
+        </label>
+        <br>
+        <br>
+        <input type="submit" value="Add Event">
+      </form>
+      <br>
+    </div>
+  </div>

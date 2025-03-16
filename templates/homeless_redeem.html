@@ -1,31 +1,163 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Redeem Credits - Earn & Eat</title>
-</head>
-<body>
-  <h1>Redeem Credits on Behalf of a Homeless Person</h1>
-  <form action="/web/homeless/redeem" method="POST">
-    <label for="homeless_id">Select Homeless Person:</label>
-    <select name="homeless_id" id="homeless_id" required>
-      {% for h in homeless_list %}
-        <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <label for="provider_id">Select Provider:</label>
-    <select name="provider_id" id="provider_id" required>
-      {% for p in providers %}
-        <option value="{{ p['_id'] }}">{{ p['provider_name'] }} ({{ p['provider_type'] }}) - Quota: {{ p['available_quota'] }}</option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <label for="amount">Amount to Redeem:</label>
-    <input type="number" name="amount" id="amount" required>
-    <br><br>
-    <button type="submit">Redeem Credits</button>
-  </form>
-  <br>
-  <a href="/web/ngo/dashboard">Back to Dashboard</a>
-</body>
+    <head>
+        <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <title>
+          Redeem Credits - Earn & Eat
+        </title>
+    </head>
+    <body>
+        <div class="tp-register-centerer">
+            <div class="tp-register-main">
+                <div class="tp-register-title heading" style="font-size: 2rem !important;">
+                  Redeem Credits on Behalf of a Homeless Person
+                </div>
+                <br>
+                <br>
+                <form class="tp-login-form" autocomplete="off" action="/web/homeless/redeem" method="POST">
+                    
+                        <label for="email" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                              Select Homeless Person
+                            </div>
+                            
+                            <select name="homeless_id" id="roleSelect" required class="select">
+                              {% for h in homeless_list %}
+                                <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
+                              {% endfor %}
+                            </select>
+                        </label>
+                        <br>
+                        <label for="username" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                              Select Provider
+                            </div>
+                            
+                            <select name="provider_id" id="provider_id" required>
+                              {% for p in providers %}
+                                <option value="{{ p['_id'] }}">{{ p['provider_name'] }} ({{ p['provider_type'] }}) - Quota: {{ p['available_quota'] }}</option>
+                              {% endfor %}
+                            </select>
+                        </label>
+                        <br>
+                        <label for="password" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                              Amount to Redeem
+                            </div>
+                            
+                            <input type="number" name="amount" id="amount" required>
+                        </label>
+                        <br>
+                        <br>
+                        <input type="submit" value="Redeem Credits">
+                        <!-- <button type="submit">Submit</button> -->
+                        <br>
+                        <br>
+                        <center>
+                            <a class="tp-login-a" href="/web/ngo/dashboard">
+                                Back to Dashboard?
+                            </a>
+                        </center>
+                        
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
+<script src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.data-parallax.js') }}"></script>
+<script>
+
+
+</script>
+<script>
+    $('.tp-login-form input').on('change',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('keypress',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        setTimeout(() => {
+            if($(this).val() != ''){
+                placeholder.addClass('select');
+            }else{
+                placeholder.removeClass('select');
+            }
+        }, 100);
+        
+    });
+    $('.tp-login-form input').on('focus',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        placeholder.addClass('select');
+    });
+    $('.tp-login-form input').on('focusout',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('input',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input, .tp-login-form select').on('change input focus focusout', function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+});
+
+
+$('.tp-login-form').on('change input focus focusout', 'input, select', function(){
+    var placeholder = $(this).parent().children('.tp-login-placeholder');
+    if($(this).val() != ''){
+        placeholder.addClass('select');
+    } else {
+        placeholder.removeClass('select');
+    }
+});
+
+$('#roleSelect').on('change', function(){
+    if($(this).val() === 'ngo'){
+        $('#ngo-cause-field').slideDown();
+    } else {
+        $('#ngo-cause-field').slideUp();
+        $('#ngo-cause-field input').val('');
+        $('#ngo-cause-field .tp-login-placeholder').removeClass('select');
+    }
+});
+
+$(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        } else {
+            placeholder.removeClass('select');
+        }
+    });
+});
+</script>

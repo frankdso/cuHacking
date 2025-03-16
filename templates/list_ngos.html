@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleUser.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
+    <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Eat and Earn</title>
 </head>
@@ -36,11 +37,18 @@
       <ul class="ngoList">
         {% for ngo in ngos %}
           <li class="ngoItem">{{ ngo.name }} <span class="ngoCause">{% if ngo.cause %} ({{ ngo.cause }}) {% endif %} <span class="ngoCause">Amount Raised: ${{ ngo.amount_raised if ngo.amount_raised is defined else "0.00" }}</span></span></li>
-          <form action="/web/user/donate_ngo" method="POST" class="ngo-action-form">
+          <form class="tp-login-form" action="/web/user/donate_ngo" method="POST" class="ngo-action-form">
             <input type="hidden" name="ngo_id" value="{{ ngo._id }}">
-            <input type="number" name="donation" placeholder="Donate" step="0.01" required>
-            <button type="submit" class="styled-btn">Donate</button>
-          </form>        
+            <label for="donations">
+              <div class="tp-login-placeholder heading">
+                Donation amount
+              </div>
+              <input type="number" name="donation" step="0.01" required style="width: 50%;">
+            </label>
+            <br>
+            <button type="submit" class="styled-btn">Donate</button>            
+          </form>  
+          <br>      
         {% endfor %}
       </ul>
       <!-- <h3>
