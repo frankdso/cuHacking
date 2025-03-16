@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleChat.css')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
+    <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>Eat and Earn</title>
 </head>
@@ -12,7 +13,7 @@
   <div class="landing">
     <div id="chatbot-container" class="ngoListCont">
       <h1>Eat & Earn Chat Assistant</h1>
-      <div id="chatbot-messages" style="height:200px; overflow-y:scroll; border:1px solid #eee; padding:5px; margin-bottom:10px;"></div>
+      <div id="chatbot-messages" style="height:200px; padding:5px; margin-bottom:10px;"></div>
       <input type="text" id="chatbot-input" placeholder="Type your message here..." style="width:100%; box-sizing:border-box;" />
       <button id="chatbot-send">Send</button>
     </div>
