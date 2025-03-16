@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>NGOs - Earn & Eat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styleUser.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Eat and Earn</title>
 </head>
 <body>
-  <h1>List of NGOs</h1>
-  <ul>
-    {% for ngo in ngos %}
-      <li>{{ ngo.name }} {% if ngo.cause %} ({{ ngo.cause }}) {% endif %}</li>
-    {% endfor %}
-  </ul>
-  <br>
-  <a href="/logout">Logout</a>
+  <header>
+    <div class="left q-head-nav-wrap">
+        <a class="q-head-nav" href="/">
+            logo
+        </a>
+    </div>
+    <div class="q-head-nav-wrap">
+        <a class="q-head-nav" href="/">
+            Home
+        </a>
+        <a class="q-head-nav" href="/">
+            About
+        </a>
+        <a class="q-head-nav" href="#/">
+            Contact Us
+        </a>
+        <a class="q-head-nav" href="/logout">
+            Logout
+        </a>
+    </div>
+  </header>
+  <div class="landing">
+    <div class="ngoListCont">
+      <h1 class="ngoHeading">List of NGOs</h1>
+      <ul class="ngoList">
+        {% for ngo in ngos %}
+          <li class="ngoItem">{{ ngo.name }} <span class="ngoCause">{% if ngo.cause %} ({{ ngo.cause }}) {% endif %}</span></li>
+        {% endfor %}
+      </ul>
+      <h3>
+        So that's what rock bottom looks like.
+      </h3>
+    </div>
+    <br>
+  </div>
 </body>
 </html>

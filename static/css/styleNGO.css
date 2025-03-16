@@ -1,0 +1,62 @@
+:root{
+--base-col: #0B152D;
+--secondary-col: #F2D2D2; 
+}
+
+html,body{
+    font-family: "Montserrat";
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    color: #F2D2D2;
+}
+
+body{
+    background-color: var(--base-col);
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
+    background-color: var(--base-col);
+}
+
+.landing{
+    height: calc(100vh);
+    background: url(../assets/svgs/secondBG.svg);
+    background-position: bottom;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+}
+
+.ngoListCont {
+    padding: 75px;
+    color: #fff;
+    width: 50vw;
+}
+
+.q-body-nav{
+    color: var(--secondary-col);
+    display: inline-block;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.4rem;
+    transition: all 0.3s ease 0s;
+}
+
+#chatbot-container {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 400px;
+    margin-top: 20px;
+  }
+  #chatbot-messages {
+    height: 200px;
+    overflow-y: scroll;
+    border: 1px solid #eee;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  #chatbot-input {
+    width: 100%;
+    box-sizing: border-box;
+  }

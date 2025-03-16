@@ -1,30 +1,153 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Assign Volunteer to Event - Earn & Eat</title>
-</head>
-<body>
-  <h1>Assign Volunteer to Event</h1>
-  <form action="/web/ngo/assign_org" method="POST">
-    <label for="homeless_id">Select Volunteer:</label>
-    <select name="homeless_id" id="homeless_id" required>
-      {% for h in homeless_list %}
-        <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <label for="selected_event">Select Event:</label>
-    <select name="selected_event" id="selected_event" required>
-      {% for event in events %}
-        <option value="{{ event['org_id'] }}|{{ event['event_index'] }}">
-          {{ event['org_name'] }} - {{ event['eventName'] }} ({{ event['positions_available'] }} positions available)
-        </option>
-      {% endfor %}
-    </select>
-    <br><br>
-    <button type="submit">Assign</button>
-  </form>
-  <br>
-  <a href="/web/ngo/dashboard">Back to Dashboard</a>
-</body>
+    <head>
+        <link href="{{ url_for('static', filename='/css/register.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <title>Assign Volunteer to Event - Earn & Eat</title>
+    </head>
+    <body>
+        <div class="tp-register-centerer">
+            <div class="tp-register-main">
+                <div class="tp-register-title heading">
+                  Assign Volunteer to Event
+                </div>
+                <br>
+                <br>
+                <form class="tp-login-form" autocomplete="off" action="/web/ngo/assign_org" method="POST">
+                        <label autocomplete="off">
+                          <div class="tp-login-placeholder heading selectHeading" >
+                            Select Volunteer
+                          </div>
+                          <select name="role" id="roleSelect" required class="select">
+                            {% for h in homeless_list %}
+                              <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
+                            {% endfor %}
+                          </select>
+                        </label>
+                        <br>
+                        <label autocomplete="off">
+                          <div class="tp-login-placeholder heading selectHeading" >
+                            Select Event
+                          </div>
+                          <select name="role" id="roleSelect" required class="select">
+                            {% for event in events %}
+                              <option value="{{ event['org_id'] }}|{{ event['event_index'] }}">
+                                {{ event['org_name'] }} - {{ event['eventName'] }} ({{ event['positions_available'] }} positions available)
+                              </option>
+                            {% endfor %}
+                          </select>
+                        </label>
+                        <br>
+                        <br>
+                        <input type="submit" value="Add Person">
+                        <!-- <button type="submit">Submit</button> -->
+                        <br>
+                        <br>
+                        <center>
+                            <a class="tp-login-a" href="/web/ngo/dashboard">
+                              Back to Dashboard
+                            </a>
+                            <br>
+                        </center>
+                        
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
+<script src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.data-parallax.js') }}"></script>
+<script>
+
+
+</script>
+<script>
+    $('.tp-login-form input').on('change',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('keypress',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        setTimeout(() => {
+            if($(this).val() != ''){
+                placeholder.addClass('select');
+            }else{
+                placeholder.removeClass('select');
+            }
+        }, 100);
+        
+    });
+    $('.tp-login-form input').on('focus',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        placeholder.addClass('select');
+    });
+    $('.tp-login-form input').on('focusout',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('input',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input, .tp-login-form select').on('change input focus focusout', function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+});
+
+
+$('.tp-login-form').on('change input focus focusout', 'input, select', function(){
+    var placeholder = $(this).parent().children('.tp-login-placeholder');
+    if($(this).val() != ''){
+        placeholder.addClass('select');
+    } else {
+        placeholder.removeClass('select');
+    }
+});
+
+$('#roleSelect').on('change', function(){
+    if($(this).val() === 'ngo'){
+        $('#ngo-cause-field').slideDown();
+    } else {
+        $('#ngo-cause-field').slideUp();
+        $('#ngo-cause-field input').val('');
+        $('#ngo-cause-field .tp-login-placeholder').removeClass('select');
+    }
+});
+
+$(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        } else {
+            placeholder.removeClass('select');
+        }
+    });
+});
+</script>

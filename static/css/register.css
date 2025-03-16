@@ -1,0 +1,154 @@
+:root{
+    --base-col: #0B152D;
+    --secondary-col: #F2D2D2; 
+}
+body{
+    background: #0B152D;
+    font-family: "Montserrat";
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+}
+.tp-register-centerer{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    overflow: hidden;
+}
+.tp-register-main{
+    width: 400px;
+}
+.tp-register-title{
+    font-size: 50px;
+    font-weight: bold;
+    color: var(--secondary-col);
+}
+
+.tp-login-modal-cover{
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    position: fixed;
+    background:rgba(0, 0, 0, 0.445);
+    z-index: 5;
+    display: none;
+}
+.tp-login-modal{
+    position: fixed;
+    width: 500px;
+    height: 700px;
+    border-radius: 20px;
+    background: white;
+    top: calc(50vh - 350px);
+    left: calc(50vw - 250px);
+    z-index: 10;
+}
+.tp-login-top{
+    width: 280px;
+    height: 210px;
+    margin: 40px 110px;
+    background: url('../med/sys/login.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.tp-login-heading{
+    font-size: 30px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.tp-login-main{
+    margin: 40px;
+}
+.login-button-text{
+    vertical-align: center;
+    display: inline-block;
+    font-size: 16px;
+    padding-left: 20px;
+}
+
+.tp-login-form input{
+    font-weight: 800;
+    padding: 15px 30px;
+    padding-top: 30px;
+    width: 100%;
+    display: inline-block;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background:rgb(231, 231, 231);
+    font-size: 18px;
+    transition: 0.4s;
+    /* width: 80%; */
+}
+.selectHeading{
+    padding-right: 50px !important;
+}
+select{
+    /* font-weight: 800; */
+    padding: 15px 30px;
+    padding-top: 30px;
+    width: 120%;
+    display: inline-block;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background:rgb(231, 231, 231);
+    font-size: 18px;
+    transition: 0.4s;
+    /* width: 80%; */
+}
+.select:hover{
+    cursor: pointer;
+}
+.tp-login-form input:hover{
+    background:rgb(238, 238, 238);
+}
+.tp-login-form input:focus{
+    border:2px solid black;
+}
+.tp-login-form label{
+    width: 80%;
+    display: block;
+    position: relative;
+}
+.tp-login-placeholder{
+    top: 26px;
+    left: 30px;
+    position: absolute;
+    color: grey;
+    transition: 0.4s;
+    pointer-events: none;
+}
+.tp-login-placeholder.select{
+    top: 10px;
+}
+.tp-login-a{
+    color: var(--secondary-col);
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+.tp-login-a:hover{
+    text-decoration: underline;
+}
+.tp-login-form input[type="submit"]{
+    padding:22.5px 30px;
+    width: calc(95%);
+    display: block;
+    background:dodgerblue;
+    color: white;
+    cursor: pointer;
+}
+.tp-login-form input[type="submit"]:hover{
+    background:rgb(24, 112, 201);
+}
+.tp-login-close{
+    font-size: 25px;
+    color: white;
+    position: absolute;
+    top: calc(50vh - 375px);
+    right: calc(50vw - 275px);
+    cursor: pointer;
+}

@@ -1,14 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Earn & Eat - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/style.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/header.css')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Website ka naam kya hai guys?</title>
 </head>
 <body>
-    <h1>Welcome to Earn & Eat</h1>
-    <p>
-      <a href="/sign_in">Sign In</a> or
-      <a href="/sign_up">Sign Up</a> or
-      <a href="/enroll_org">Enroll Organization</a>
-    </p>
+    <header>
+        <div class="left q-head-nav-wrap">
+            <a class="q-head-nav" href="#home">
+                logo
+            </a>
+        </div>
+        <div class="q-head-nav-wrap">
+            <a class="q-head-nav" href="#home">
+                Home
+            </a>
+            <a class="q-head-nav" href="#events">
+                About
+            </a>
+            <a class="q-head-nav" href="#contact">
+                Contact Us
+            </a>
+            <a class="q-head-nav" href="/sign_in">
+                Sign In
+            </a>
+        </div>
+    </header>
+    <div class="landing">
+        <div class="top">
+            <div class="text">
+                <div class="wrapper">
+                    <div class="headline">
+                        <h2>Join Hands,</h2> <br>
+                        <h2>Change Lives</h2>
+                    </div>
+                    <p class="eh">
+                        Turn Community Work into Meals and Shelter!
+                    </p>
+                </div>
+            </div>
+            <div class="truck">
+                <img src="{{ url_for('static', filename='/assets/svgs/mainSVG.svg')}}" alt="" class="main">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+      function stars(){
+        let count = 500;
+        let scene = document.querySelector('.text');
+        let i =0;
+        while(i < count){
+          let star = document.createElement("i");
+          let x = Math.floor(Math.random() * (window.innerWidth / 2));
+          let y = Math.floor(Math.random() * (window.innerHeight / 2));
+          let duration = Math.random() * 10;
+          let size = Math.random() * 2;
+
+          star.style.left = x+'px';
+          star.style.top = y+'px';
+          star.style.width = 1+size+'px';
+          star.style.height = 2+size+'px';
+          
+          star.style.animationDuration = 5+duration + 's';
+          star.style.animationDelay = duration + 's';
+
+          scene.append(star);
+          i++;
+        }
+      }
+      stars();
+    </script>    
 </body>
+
 </html>

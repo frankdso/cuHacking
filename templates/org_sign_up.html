@@ -1,19 +1,166 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Enroll Organization - Earn & Eat</title>
-</head>
-<body>
-  <h1>Enroll Organization</h1>
-  <form action="/enroll_org" method="POST">
-    <label>Organization Name:</label>
-    <input type="text" name="org_name" required><br><br>
-    <label>Email:</label>
-    <input type="email" name="email" required><br><br>
-    <label>Password:</label>
-    <input type="password" name="password" required><br><br>
-    <button type="submit">Enroll Organization</button>
-  </form>
-  <p>Already enrolled? <a href="/sign_in">Sign In</a></p>
-</body>
+    <head>
+        <link href="{{ url_for('static', filename='register.css')}}" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <title>
+          Sign Up - Earn & Eat
+        </title>
+    </head>
+    <body>
+        <div class="tp-register-centerer">
+            <div class="tp-register-main">
+                <div class="tp-register-title heading">
+                    Sign Up
+                </div>
+                <br>
+                <br>
+                <form class="tp-login-form" autocomplete="off" action="/enroll_org" method="POST">
+                    
+                        <label for="email" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                                E-mail
+                            </div>
+                            
+                            <input type="email" name="email">
+                        </label>
+                        <br>
+                        <label for="username" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                                Organisation Name
+                            </div>
+                            
+                            <input type="text" name="username">
+                        </label>
+                        <br>
+                        <label for="password" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                                Password
+                            </div>
+                            
+                            <input type="password" name="password">
+                        </label>
+                        <br>
+                        <label for="repassword" autocomplete="off">
+                            <div class="tp-login-placeholder heading">
+                                Re-enter Password
+                            </div>
+                            
+                            <input type="password" name="repassword">
+                        </label>
+                        <br>
+                        <br>
+                        <input type="submit" value="Sign Up">
+                        <!-- <button type="submit">Submit</button> -->
+                        <br>
+                        <br>
+                        <center>
+                            <a class="tp-login-a" href="/sign_in">
+                                Already enrolled?
+                            </a>
+                            <br>
+                            <a class="tp-login-a" href="/">
+                              Back to Base
+                            </a>
+                        </center>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
+<script src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+<script src="{{ url_for('static', filename='jquery.data-parallax.js') }}"></script>
+<script>
+
+
+</script>
+<script>
+    $('.tp-login-form input').on('change',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('keypress',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        setTimeout(() => {
+            if($(this).val() != ''){
+                placeholder.addClass('select');
+            }else{
+                placeholder.removeClass('select');
+            }
+        }, 100);
+        
+    });
+    $('.tp-login-form input').on('focus',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        placeholder.addClass('select');
+    });
+    $('.tp-login-form input').on('focusout',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input').on('input',function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $('.tp-login-form input, .tp-login-form select').on('change input focus focusout', function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+    $(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        }else{
+            placeholder.removeClass('select');
+        }
+    });
+});
+
+
+$('.tp-login-form').on('change input focus focusout', 'input, select', function(){
+    var placeholder = $(this).parent().children('.tp-login-placeholder');
+    if($(this).val() != ''){
+        placeholder.addClass('select');
+    } else {
+        placeholder.removeClass('select');
+    }
+});
+
+$('#roleSelect').on('change', function(){
+    if($(this).val() === 'ngo'){
+        $('#ngo-cause-field').slideDown();
+    } else {
+        $('#ngo-cause-field').slideUp();
+        $('#ngo-cause-field input').val('');
+        $('#ngo-cause-field .tp-login-placeholder').removeClass('select');
+    }
+});
+
+$(document).ready(function(){
+    $('.tp-login-form input, .tp-login-form select').each(function(){
+        var placeholder = $(this).parent().children('.tp-login-placeholder');
+        if($(this).val() != ''){
+            placeholder.addClass('select');
+        } else {
+            placeholder.removeClass('select');
+        }
+    });
+});
+</script>
