@@ -139,8 +139,9 @@ def sign_up():
         role = request.form.get('role', 'user').lower()
         new_user = {"name": name, "email": email, "password": password, "role": role}
         if role == 'ngo':
-            cause = request.form.get('cause')  # 3-4 word description of their cause
+            cause = request.form.get('cause')  # Brief cause description
             new_user['cause'] = cause
+            new_user['amount_raised'] = 0  # Initialize donation total
         if users_collection.find_one({"email": email}):
             return "User with that email already exists. <a href='/sign_in'>Sign in instead</a>"
         result = users_collection.insert_one(new_user)
@@ -188,7 +189,10 @@ def web_ngo_dashboard():
     ngo_id = session['user_id']
     homeless = list(users_collection.find({"role": "homeless person", "added_by": ngo_id}))
     homeless = [serialize_doc(u) for u in homeless]
-    return render_template('ngo_dashboard.html', homeless=homeless)
+    # Fetch NGO's own record to show donation amount
+    ngo_record = users_collection.find_one({"_id": ObjectId(ngo_id)})
+    ngo_record = serialize_doc(ngo_record)
+    return render_template('ngo_dashboard.html', homeless=homeless, ngo=ngo_record)
 
 @app.route('/web/ngo/add-homeless', methods=['GET', 'POST'])
 @requires_login
@@ -305,6 +309,28 @@ def list_ngos_for_user():
     return render_template('list_ngos.html', ngos=ngos)
 
 # ------------------------------
+# Donation Route for Normal Users
+# ------------------------------
+@app.route('/web/user/donate_ngo', methods=['POST'])
+@requires_login
+def donate_ngo():
+    if session['role'] != 'user':
+        return "Access denied. Only normal users can donate."
+    ngo_id = request.form.get('ngo_id')
+    try:
+        donation = float(request.form.get('donation', 0))
+    except ValueError:
+        return "Invalid donation amount.", 400
+    if donation <= 0:
+        return "Donation must be greater than zero."
+    # Increment the NGO's amount_raised field in the users collection.
+    users_collection.update_one(
+        {"_id": ObjectId(ngo_id), "role": "ngo"},
+        {"$inc": {"amount_raised": donation}}
+    )
+    return redirect(url_for('list_ngos_for_user'))
+
+# ------------------------------
 # Organization Management
 # ------------------------------
 @app.route('/org/manage', methods=['GET', 'POST'])
@@ -360,36 +386,29 @@ def web_opportunities_delete(opp_id):
     opportunities_collection.delete_one({"_id": ObjectId(opp_id)})
     return redirect(url_for('web_opportunities'))
 
-
 # ------------------------------
 # NGO-Assisted Homeless Redemption
 # ------------------------------
 @app.route('/web/homeless/redeem', methods=['GET', 'POST'])
 @requires_login
 def homeless_redeem():
-    # Only allow access for NGOs
+    # Only allow access for NGOs to process redemption on behalf of homeless persons.
     if session['role'] != 'ngo':
-        return "Access denied. Only NGOs can perform redemption on behalf of homeless persons."
-    
+        return "Access denied. Only NGOs can process redemption."
     if request.method == 'GET':
-        # List available providers (shelters and food banks)
         providers = list(providers_collection.find())
         providers = [serialize_doc(p) for p in providers]
-        # Also list homeless persons added by the NGO for whom redemption can be processed
         ngo_id = session['user_id']
         homeless_list = list(users_collection.find({"role": "homeless person", "added_by": ngo_id}))
         homeless_list = [serialize_doc(h) for h in homeless_list]
         return render_template('homeless_redeem.html', providers=providers, homeless_list=homeless_list)
-    
     else:
         provider_id = request.form.get('provider_id')
         redeem_amount = int(request.form.get('amount', 0))
         homeless_id = request.form.get('homeless_id')
-        # Retrieve homeless record
         homeless = users_collection.find_one({"_id": ObjectId(homeless_id)})
         if not homeless:
             return "Homeless record not found.", 404
-        # Retrieve provider record
         provider = providers_collection.find_one({"_id": ObjectId(provider_id)})
         if not provider:
             return "Provider not found.", 404
@@ -403,20 +422,14 @@ def homeless_redeem():
         current_credits = homeless.get(f"{credit_type}_credits", 0)
         if current_credits < redeem_amount:
             return "Not enough credits to redeem.", 400
-        # Deduct credits from homeless person
         users_collection.update_one({"_id": ObjectId(homeless_id)}, {"$inc": {f"{credit_type}_credits": -redeem_amount}})
-        # Deduct from provider's available quota
         providers_collection.update_one({"_id": ObjectId(provider_id)}, {"$inc": {"available_quota": -redeem_amount}})
         return redirect(url_for('homeless_redeem_confirmation'))
 
 @app.route('/web/homeless/redeem/confirmation', methods=['GET'])
 @requires_login
 def homeless_redeem_confirmation():
-    # Only NGOs can see the confirmation page
-    if session['role'] != 'ngo':
-        return "Access denied."
     return render_template('homeless_redeem_confirmation.html')
-
 
 # ------------------------------
 # Gemini Chatbot Endpoints with Eat & Earn Context
