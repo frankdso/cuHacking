@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NGOs - Earn & Eat</title>
+</head>
+<body>
+  <h1>List of NGOs</h1>
+  <ul>
+    {% for ngo in ngos %}
+      <li>{{ ngo.name }} {% if ngo.cause %} ({{ ngo.cause }}) {% endif %}</li>
+    {% endfor %}
+  </ul>
+  <br>
+  <a href="/logout">Logout</a>
+</body>
+</html>

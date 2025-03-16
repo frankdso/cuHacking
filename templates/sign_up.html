@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up - Earn & Eat</title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <form action="/sign_up" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" required><br><br>
+    <label>Email:</label>
+    <input type="email" name="email" required><br><br>
+    <label>Password:</label>
+    <input type="password" name="password" required><br><br>
+    <label>Role:</label>
+    <select name="role" required>
+      <option value="user">User</option>
+      <option value="ngo">NGO</option>
+    </select><br><br>
+    <div id="ngo-cause" style="display:none;">
+      <label>Cause (3-4 words):</label>
+      <input type="text" name="cause"><br><br>
+    </div>
+    <button type="submit">Sign Up</button>
+  </form>
+  <script>
+    const roleSelect = document.querySelector('select[name="role"]');
+    const ngoCause = document.getElementById('ngo-cause');
+    roleSelect.addEventListener('change', function() {
+      ngoCause.style.display = this.value === 'ngo' ? 'block' : 'none';
+    });
+  </script>
+  <p>Already have an account? <a href="/sign_in">Sign In</a></p>
+</body>
+</html>

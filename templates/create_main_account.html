@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Main Account</title>
+</head>
+<body>
+    <h1>Create Your Account</h1>
+    <form action="{{ url_for('create_main_account_prefill') }}" method="POST">
+        <label>Name:</label>
+        <input type="text" name="name" value="{{ profile.get('name', '') }}" required><br><br>
+        <label>Email:</label>
+        <input type="email" name="email" value="{{ profile.get('email', '') }}" required><br><br>
+        <label>Role:</label>
+        <select name="role">
+            <option value="NGO">NGO</option>
+            <option value="User">User</option>
+        </select><br><br>
+        <label>Initial Credits:</label>
+        <input type="number" name="credits" value="0"><br><br>
+        <button type="submit">Create Account</button>
+    </form>
+    <br>
+    <a href="/logout">Logout</a>
+</body>
+</html>

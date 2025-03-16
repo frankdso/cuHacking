@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Redeem Credits - Earn & Eat</title>
+</head>
+<body>
+  <h1>Redeem Credits on Behalf of a Homeless Person</h1>
+  <form action="/web/homeless/redeem" method="POST">
+    <label for="homeless_id">Select Homeless Person:</label>
+    <select name="homeless_id" id="homeless_id" required>
+      {% for h in homeless_list %}
+        <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <label for="provider_id">Select Provider:</label>
+    <select name="provider_id" id="provider_id" required>
+      {% for p in providers %}
+        <option value="{{ p['_id'] }}">{{ p['provider_name'] }} ({{ p['provider_type'] }}) - Quota: {{ p['available_quota'] }}</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <label for="amount">Amount to Redeem:</label>
+    <input type="number" name="amount" id="amount" required>
+    <br><br>
+    <button type="submit">Redeem Credits</button>
+  </form>
+  <br>
+  <a href="/web/ngo/dashboard">Back to Dashboard</a>
+</body>
+</html>

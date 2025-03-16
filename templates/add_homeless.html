@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Homeless Person - NGO</title>
+</head>
+<body>
+  <h1>Add Homeless Person</h1>
+  <form action="/web/ngo/add-homeless" method="POST">
+    <label>Name:</label>
+    <input type="text" name="name" required><br><br>
+    <label>Email:</label>
+    <input type="email" name="email" required><br><br>
+    <label>Shelter Credits:</label>
+    <input type="number" name="shelter_credits" value="0"><br><br>
+    <label>Food Credits:</label>
+    <input type="number" name="food_credits" value="0"><br><br>
+    <button type="submit">Add Homeless Person</button>
+  </form>
+  <p><a href="/web/ngo/dashboard">Back to Dashboard</a></p>
+</body>
+</html>

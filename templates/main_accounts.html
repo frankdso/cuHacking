@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Main Accounts</title>
+</head>
+<body>
+    <h1>Main Accounts (NGO / User)</h1>
+    <ul>
+    {% for acc in accounts %}
+        <li>{{ acc['name'] }} ({{ acc['email'] }}) - Role: {{ acc['role'] }}</li>
+    {% endfor %}
+    </ul>
+    <p><a href="/logout">Logout</a></p>
+</body>
+</html>

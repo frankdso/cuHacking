@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Organization Dashboard - Earn & Eat</title>
+</head>
+<body>
+  <h1>Organization Dashboard</h1>
+  <p>Welcome, {{ org.org_name }}!</p>
+  <p>Email: {{ org.email }}</p>
+  <h2>Your Events</h2>
+  <ul>
+    {% for event in org.events %}
+      <li>
+        Event: {{ event.eventName }}<br>
+        Positions Available: {{ event.positions_available }}<br>
+        Shelter Credits Offered: {{ event.shelter_credits_offered }}<br>
+        Food Credits Offered: {{ event.food_credits_offered }}
+      </li>
+    {% endfor %}
+  </ul>
+  <h3>Add New Event</h3>
+  <form action="/org/manage" method="POST">
+    <label>Event Name:</label>
+    <input type="text" name="eventName" required><br><br>
+    <label>Positions Available:</label>
+    <input type="number" name="positions_available" required><br><br>
+    <label>Shelter Credits Offered:</label>
+    <input type="number" name="shelter_offered" required><br><br>
+    <label>Food Credits Offered:</label>
+    <input type="number" name="food_offered" required><br><br>
+    <button type="submit">Add Event</button>
+  </form>
+  <br>
+  <a href="/logout">Logout</a>
+</body>
+</html>

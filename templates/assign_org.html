@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Assign Volunteer to Event - Earn & Eat</title>
+</head>
+<body>
+  <h1>Assign Volunteer to Event</h1>
+  <form action="/web/ngo/assign_org" method="POST">
+    <label for="homeless_id">Select Volunteer:</label>
+    <select name="homeless_id" id="homeless_id" required>
+      {% for h in homeless_list %}
+        <option value="{{ h['_id'] }}">{{ h['name'] }} ({{ h['email'] }})</option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <label for="selected_event">Select Event:</label>
+    <select name="selected_event" id="selected_event" required>
+      {% for event in events %}
+        <option value="{{ event['org_id'] }}|{{ event['event_index'] }}">
+          {{ event['org_name'] }} - {{ event['eventName'] }} ({{ event['positions_available'] }} positions available)
+        </option>
+      {% endfor %}
+    </select>
+    <br><br>
+    <button type="submit">Assign</button>
+  </form>
+  <br>
+  <a href="/web/ngo/dashboard">Back to Dashboard</a>
+</body>
+</html>

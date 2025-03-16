@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NGO Dashboard - Earn & Eat</title>
+  <style>
+    /* Basic styling for chatbot window */
+    #chatbot-container {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 400px;
+      margin-top: 20px;
+    }
+    #chatbot-messages {
+      height: 200px;
+      overflow-y: scroll;
+      border: 1px solid #eee;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+    #chatbot-input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <h1>NGO Dashboard</h1>
+  <p>Welcome, NGO!</p>
+  <a href="/web/ngo/add-homeless">Add Homeless Person</a> |
+  <a href="/web/ngo/assign_org">Assign Volunteers to Event</a> |
+  <a href="/logout">Logout</a>
+
+  <h2>Homeless People You Have Added</h2>
+  <ul>
+  {% for h in homeless %}
+    <li>
+      {{ h['name'] }} ({{ h['email'] }})<br>
+      Shelter Credits: {{ h.get('shelter_credits', 0) }}, Food Credits: {{ h.get('food_credits', 0) }}<br>
+      {% if h.get('org_assigned') %}
+        Assigned to: {{ h['org_assigned'] }} (Event: {{ h.get('event_assigned', 'N/A') }})
+        {% if not h.get('event_completed') %}
+          <form action="/web/ngo/mark_event_done" method="POST" style="display:inline;">
+            <input type="hidden" name="homeless_id" value="{{ h['_id'] }}">
+            <input type="hidden" name="org_id" value="{{ h.get('org_assigned_id', '') }}">
+            <input type="hidden" name="event_index" value="{{ h.get('event_index', 0) }}">
+            <button type="submit">Done</button>
+          </form>
+        {% else %}
+          - Event Completed
+        {% endif %}
+      {% else %}
+        Not Assigned
+      {% endif %}
+    </li>
+  {% endfor %}
+  </ul>
+
+  <!-- Gemini AI Chatbot Window -->
+  <div id="chatbot-container">
+    <h3>Eat & Earn Assistant</h3>
+    <div id="chatbot-messages"></div>
+    <input type="text" id="chatbot-input" placeholder="Type your message here..." />
+    <button id="chatbot-send">Send</button>
+  </div>
+
+  <script>
+    const messagesDiv = document.getElementById('chatbot-messages');
+    const inputField = document.getElementById('chatbot-input');
+    const sendButton = document.getElementById('chatbot-send');
+
+    sendButton.addEventListener('click', () => {
+      const userMessage = inputField.value;
+      if (!userMessage) return;
+      appendMessage("You", userMessage);
+      inputField.value = "";
+
+      fetch('/web/gemini/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: userMessage})
+      })
+      .then(response => response.json())
+      .then(data => {
+        appendMessage("Assistant", data.response);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    });
+
+    function appendMessage(sender, message) {
+      const msgDiv = document.createElement('div');
+      msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>

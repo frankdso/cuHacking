@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Eat & Earn Assistant Chat</title>
+</head>
+<body>
+  <h1>Eat & Earn Chat Assistant</h1>
+  <div id="chatbot-container" style="border:1px solid #ccc; padding:10px; width:400px;">
+    <div id="chatbot-messages" style="height:200px; overflow-y:scroll; border:1px solid #eee; padding:5px; margin-bottom:10px;"></div>
+    <input type="text" id="chatbot-input" placeholder="Type your message here..." style="width:100%; box-sizing:border-box;" />
+    <button id="chatbot-send">Send</button>
+  </div>
+  <script>
+    const messagesDiv = document.getElementById('chatbot-messages');
+    const inputField = document.getElementById('chatbot-input');
+    const sendButton = document.getElementById('chatbot-send');
+
+    sendButton.addEventListener('click', () => {
+      const userMessage = inputField.value;
+      if (!userMessage) return;
+      appendMessage("You", userMessage);
+      inputField.value = "";
+
+      fetch('/web/gemini/chat', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({prompt: userMessage})
+      })
+      .then(response => response.json())
+      .then(data => {
+        appendMessage("Assistant", data.response);
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+    });
+
+    function appendMessage(sender, message) {
+      const msgDiv = document.createElement('div');
+      msgDiv.innerHTML = `<strong>${sender}:</strong> ${message}`;
+      messagesDiv.appendChild(msgDiv);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  </script>
+</body>
+</html>
